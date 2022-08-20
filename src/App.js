@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import Search from './components/Search';
 import Locations from './components/Locations';
