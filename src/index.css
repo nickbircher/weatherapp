@@ -8,12 +8,14 @@ body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+/*
 .app {
   background-image: ;
   background-size: ;
   background-position: ;
   transition: 0.4 ease-out;
 }
+*/
 
 main {
   min-height: 100vh;

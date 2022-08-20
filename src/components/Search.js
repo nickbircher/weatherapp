@@ -1,12 +1,21 @@
-import { render } from '@testing-library/react';
-import React from 'react';
+import React, { useState } from 'react';
 
+/*
+Component consisting of:
+Search box containing a search bar which:
+allows for user input of a city and then:
+does something with the search
+*/
 const Search = () => {
 
+    const [search, setSearch] = useState('');
 
+    const handleChange = (data) => {
+        setSearch(data);
+    }
     
     return (
-    <div className='search-bar'>
+    <div className='search-box'>
         <input
         className='search-bar'
         type='text'
@@ -16,3 +25,5 @@ const Search = () => {
     );
     
 }
+
+export default Search;
