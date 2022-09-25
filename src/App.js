@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import Search from './components/Search';
 import Locations from './components/Locations';
-import Weather from './components/Weather';
 
 function App() {
 
@@ -14,7 +12,7 @@ function App() {
   }
 
   const newSearch = (event) => {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
         fetch(`${api.base}weather?q=${search}&units=metric&APPID=${api.key}`)
             .then(res => res.json)
             .then(result => {
@@ -38,11 +36,11 @@ function App() {
     );
   }
 
-  const Search = () => {
+  /* const Search = () => {
 
     const handleChange = (data) => {
         setSearch(data);
-    }
+    } 
     
     return (
     <div className='search-box'>
@@ -57,12 +55,21 @@ function App() {
     </div>
     );
     
-  }
+  } */
 
   return (
     <div className='app'>
       <main>
-        <Search />
+        <div className='search-box'>
+        <input
+        className='search-bar'
+        type='text'
+        placeholder='Search Cities'
+        onChange={e => setSearch(e.target.value)}
+        value={search}
+        onKeyPress={newSearch}
+        />
+        </div>
         <Locations />
         <Weather />
       </main>
