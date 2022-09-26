@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Locations from './components/Locations';
 
 function App() {
 
@@ -14,64 +13,71 @@ function App() {
   const newSearch = (event) => {
     if (event.key === 'Enter') {
         fetch(`${api.base}weather?q=${search}&units=metric&APPID=${api.key}`)
-            .then(res => res.json)
+            .then(res => res.json())
             .then(result => {
                 setWeather(result)
-                setSearch('')}
+                setSearch('')
+                console.log(weather);}
                 );
     }
   }
+
   
-  const Weather = () => {
+  const createDate = (curDate) => {
+      let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", 
+      "Friday", "Saturday"];
+      let months = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
 
-    return (
-        <div className='weather-box'>
-            <div className='temp'>
-                temp
-            </div>
-            <div className='weather'>
-                weather
-            </div>
-        </div>
-    );
+      let curDay = days[curDate.getDay()];
+      let curMonth = months[curDate.getMonth()];
+      let curYear = curDate.getFullYear();
+      let date = curDate.getDate();
+
+      return `${curDay} ${curMonth} ${date} ${curYear}`;
   }
-
-  /* const Search = () => {
-
-    const handleChange = (data) => {
-        setSearch(data);
-    } 
-    
-    return (
-    <div className='search-box'>
-        <input
-        className='search-bar'
-        type='text'
-        placeholder='Search Cities'
-        onChange={e => setSearch(e.target.value)}
-        value={search}
-        onKeyPress={newSearch}
-        />
-    </div>
-    );
-    
-  } */
 
   return (
     <div className='app'>
       <main>
+
         <div className='search-box'>
-        <input
-        className='search-bar'
-        type='text'
-        placeholder='Search Cities'
-        onChange={e => setSearch(e.target.value)}
-        value={search}
-        onKeyPress={newSearch}
-        />
+          <input
+          className='search-bar'
+          type='text'
+          placeholder='Search Cities'
+          onChange={e => setSearch(e.target.value)}
+          value={search}
+          onKeyPress={newSearch}
+          />
         </div>
-        <Locations />
-        <Weather />
+
+        {(typeof weather.main != "undefined") ? (
+        <div>
+          <div className='locations-box'>
+            <div className='location'>
+                {weather.name}, {weather.sys.country}
+            </div>
+            <div className='date'>
+                {createDate(new Date())}
+            </div>
+          </div> 
+        </div>
+        ) : ('')}  
+
+        {(typeof weather.main != "undefined") ? (
+        <div>  
+          <div className='weather-box'>
+            <div className='temp'>
+              {Math.round(weather.main.temp)}°c
+            </div>
+            <div className='weather'>
+                {weather.weather[0].main}
+            </div>
+          </div>
+        </div>
+        ) : ('')} 
+
       </main>
     </div>
   );
